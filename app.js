@@ -12,7 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemsPerLoad = 5;
 
     /**
-     * NEU: Prüft alle Landkreise im SVG und graut die aus, die keine Daten haben.
+     * Prüft, ob ein Landkreis echte Daten hat (mindestens ein Eintrag mit Name).
+     */
+    const hasCountyRealData = (countyKey) => {
+        const county = allData[countyKey];
+        if (!county || !county.contactPoints) return false;
+        return county.contactPoints.some(p => p.name && p.name.trim() !== "");
+    };
+
+    /**
+     * Graut Landkreise ohne echte Daten im SVG aus.
      */
     const updateCountyAvailability = () => {
         const svgDoc = sachsenMapObject.contentDocument;
@@ -20,15 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const counties = svgDoc.querySelectorAll('#counties path');
         counties.forEach(path => {
-            const countyId = path.id;
-            const hasData = allData[countyId] && 
-                            allData[countyId].contactPoints && 
-                            allData[countyId].contactPoints.length > 0;
-
-            if (!hasData) {
-                path.classList.add('empty');
-            } else {
+            if (hasCountyRealData(path.id)) {
                 path.classList.remove('empty');
+            } else {
+                path.classList.add('empty');
             }
         });
     };
@@ -96,13 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
             contactList.appendChild(loadMoreButton);
         }
         loadMoreButton.style.display = 'none';
-        if (initialMessage) initialMessage.style.display = 'none';
+        if (initialMessage) initialMessage.style.display = 'block';
 
         if (countyId === 'all') {
-            if (initialMessage) initialMessage.style.display = 'block';
             allCountyHeadlines.forEach(headline => headline.classList.add('hidden'));
             allContactPoints.forEach(point => point.classList.add('hidden'));
         } else {
+            if (initialMessage) initialMessage.style.display = 'none';
             allCountyHeadlines.forEach(headline => {
                 headline.classList.toggle('hidden', headline.dataset.county !== countyId);
             });
@@ -118,13 +122,15 @@ document.addEventListener('DOMContentLoaded', () => {
         updateActiveMapCounty(countyId);
     };
 
+    /**
+     * Erstellt Filter-Buttons nur für Landkreise mit echten Inhalten.
+     */
     const createFilterBar = () => {
         filterBar.innerHTML = ''; 
         for (const countyKey in allData) {
-            const county = allData[countyKey];
-            if (county.contactPoints && county.contactPoints.length > 0) {
+            if (hasCountyRealData(countyKey)) {
                 const button = document.createElement('button');
-                button.textContent = county.fullName;
+                button.textContent = allData[countyKey].fullName;
                 button.dataset.county = countyKey;
                 button.addEventListener('click', () => filterContactPoints(countyKey));
                 filterBar.appendChild(button);
@@ -132,115 +138,119 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Hilfsfunktionen (Kopieren, Öffnungsstatus etc.)
-    const fallbackCopyTextToClipboard = (text, onSuccess) => {
-        const textArea = document.createElement("textarea");
-        textArea.value = text;
-        textArea.style.position = "fixed";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        try { document.execCommand('copy'); onSuccess(); } catch (err) {}
-        document.body.removeChild(textArea);
-    };
-
+    // Hilfsfunktionen für das Rendering
     const getOpeningStatus = (structuredHours) => {
         if (!structuredHours) return {status: 'unknown'};
-        const dayOrder = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-        const dayNames = { mon: 'Montag', tue: 'Dienstag', wed: 'Mittwoch', thu: 'Donnerstag', fri: 'Freitag', sat: 'Samstag', sun: 'Sonntag' };
-        let allIntervals = [];
-        let hasAppointment = false;
-        dayOrder.forEach((day, dayIndex) => {
-            if (structuredHours[day]) {
-                structuredHours[day].forEach(entry => {
-                    if (entry === 'appointment') { hasAppointment = true; } else {
-                        const times = entry.match(/(\d{2}):(\d{2})–(\d{2}):(\d{2})/);
-                        if (times) {
-                            allIntervals.push({
-                                day: day, dayIndex: dayIndex,
-                                start: parseInt(times[1], 10) * 60 + parseInt(times[2], 10),
-                                end: parseInt(times[3], 10) * 60 + parseInt(times[4], 10)
-                            });
-                        }
-                    }
-                });
-            }
-        });
-        if (allIntervals.length === 0) return hasAppointment ? {status: 'appointment'} : {status: 'unknown'};
         const now = new Date();
-        const currentDayIndex = now.getDay();
+        const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+        const today = days[now.getDay()];
         const currentTime = now.getHours() * 60 + now.getMinutes();
-        for (const interval of allIntervals) {
-            if (interval.dayIndex === currentDayIndex && currentTime >= interval.start && currentTime < interval.end) {
-                return {status: 'open', closesAt: `${String(Math.floor(interval.end / 60)).padStart(2, '0')}:${String(interval.end % 60).padStart(2, '0')}`};
+        
+        const todaysHours = structuredHours[today] || [];
+        for (const entry of todaysHours) {
+            if (entry === 'appointment') return {status: 'appointment'};
+            const match = entry.match(/(\d{2}):(\d{2})–(\d{2}):(\d{2})/);
+            if (match) {
+                const start = parseInt(match[1]) * 60 + parseInt(match[2]);
+                const end = parseInt(match[3]) * 60 + parseInt(match[4]);
+                if (currentTime >= start && currentTime < end) {
+                    return {status: 'open', closesAt: `${match[3]}:${match[4]}`};
+                }
             }
         }
-        return {status: 'closed', opensAt: "demnächst", opensOn: ""}; // Vereinfacht für Kürze
+        return {status: 'closed'};
     };
 
-    /**
-     * RENDERING LOGIK (Wiederhergestellt)
-     */
     const renderContactPoints = () => {
         contactList.innerHTML = '';
         if (initialMessageTemplate) contactList.appendChild(initialMessageTemplate.content.cloneNode(true));
 
         for (const countyKey in allData) {
             const county = allData[countyKey];
-            if (county.contactPoints && county.contactPoints.length > 0) {
-                const countyName = document.createElement('h3');
-                countyName.textContent = county.fullName;
-                countyName.dataset.county = countyKey;
-                contactList.appendChild(countyName);
+            if (!hasCountyRealData(countyKey)) continue;
 
-                county.contactPoints.forEach(point => {
-                    const clone = template.content.cloneNode(true);
-                    const pointDiv = clone.querySelector('.contact-point');
-                    pointDiv.dataset.county = countyKey;
+            const countyHeadline = document.createElement('h3');
+            countyHeadline.textContent = county.fullName;
+            countyHeadline.dataset.county = countyKey;
+            contactList.appendChild(countyHeadline);
 
-                    const setText = (selector, text) => {
-                        const el = clone.querySelector(selector);
-                        if (el) el.textContent = text || '';
-                    };
+            county.contactPoints.forEach(point => {
+                if (!point.name || point.name.trim() === "") return;
 
-                    setText('.name', point.name);
-                    setText('.carrier', point.carrier);
-                    
-                    // Adresse
-                    const addrSpan = clone.querySelector('.address');
-                    if (point.address) {
-                        addrSpan.textContent = `${point.address.street}, ${point.address.postalCode} ${point.address.city}`;
+                const clone = template.content.cloneNode(true);
+                const pointDiv = clone.querySelector('.contact-point');
+                pointDiv.dataset.county = countyKey;
+
+                // Name & Träger
+                clone.querySelector('.name').textContent = point.name;
+                const carrierEl = clone.querySelector('.carrier');
+                if (point.carrier) carrierEl.textContent = point.carrier; else carrierEl.style.display = 'none';
+
+                // Helper: Felder ein/ausblenden
+                const toggleWrapper = (wrapperSelector, value, text) => {
+                    const wrapper = clone.querySelector(wrapperSelector);
+                    if (value && String(value).trim() !== "") {
+                        if (text) wrapper.querySelector('span, a').textContent = text;
+                        wrapper.style.display = 'flex';
+                    } else {
+                        wrapper.style.display = 'none';
                     }
+                };
 
-                    // Telefon & Email & Web
-                    const setLink = (selector, val, proto = '') => {
-                        const a = clone.querySelector(selector);
-                        if (a && val) { a.href = proto + val; a.textContent = val; }
-                        else if (a) a.parentElement.style.display = 'none';
-                    };
-                    setLink('.email', point.contact?.email, 'mailto:');
-                    setLink('.website', point.contact?.web || point.contact?.website);
+                // Adresse
+                const addr = point.address;
+                const addrText = (addr && addr.street) ? `${addr.street}, ${addr.postalCode} ${addr.city}` : "";
+                toggleWrapper('.address-wrapper', addrText, addrText);
 
-                    // Social Media (Kurzform für Übersicht)
-                    const wireSocial = (selector, val) => {
-                        const el = clone.querySelector(selector);
-                        if (el && val) el.href = val; else if (el) el.style.display = 'none';
-                    };
-                    wireSocial('.instagram-wrapper', point.social?.instagram);
-                    wireSocial('.facebook-wrapper', point.social?.facebook);
+                // Telefon (Array oder String)
+                const phone = Array.isArray(point.contact?.phone) ? point.contact.phone[0] : point.contact?.phone;
+                toggleWrapper('.phone-wrapper', phone, phone);
 
-                    // Copy Button
-                    clone.querySelector('.copy-button')?.addEventListener('click', () => {
-                        fallbackCopyTextToClipboard(`${point.name}\n${point.address?.street}`, () => alert('Kopiert!'));
-                    });
+                // E-Mail
+                const emailA = clone.querySelector('.email');
+                if (point.contact?.email) {
+                    emailA.href = `mailto:${point.contact.email}`;
+                    emailA.textContent = point.contact.email;
+                } else {
+                    clone.querySelector('.email-wrapper').style.display = 'none';
+                }
 
-                    contactList.appendChild(clone);
-                });
-            }
+                // Website
+                const webA = clone.querySelector('.website');
+                const webUrl = point.contact?.web || point.contact?.website;
+                if (webUrl) {
+                    webA.href = webUrl.startsWith('http') ? webUrl : `https://${webUrl}`;
+                    webA.textContent = "Website besuchen";
+                } else {
+                    clone.querySelector('.website-wrapper').style.display = 'none';
+                }
+
+                // Social Media
+                const wireSocial = (selector, url) => {
+                    const el = clone.querySelector(selector);
+                    if (url && url.trim() !== "") el.href = url; else el.style.display = 'none';
+                };
+                wireSocial('.instagram-wrapper', point.social?.instagram);
+                wireSocial('.facebook-wrapper', point.social?.facebook);
+                wireSocial('.linkedin-wrapper', point.social?.linkedin);
+
+                // Download
+                const dl = point.download;
+                const dlWrapper = clone.querySelector('.download-wrapper');
+                if (dl && dl.url) {
+                    const dlA = dlWrapper.querySelector('.download');
+                    dlA.href = dl.url;
+                    dlA.textContent = dl.text || "Download";
+                } else {
+                    dlWrapper.style.display = 'none';
+                }
+
+                contactList.appendChild(clone);
+            });
         }
     };
 
-    // Daten laden
+    // Daten laden & Start
     fetch('contact-points.json')
         .then(res => res.json())
         .then(data => {
@@ -249,15 +259,19 @@ document.addEventListener('DOMContentLoaded', () => {
             createFilterBar();
             filterContactPoints('all');
             updateCountyAvailability();
-        });
+        })
+        .catch(err => console.error("Fehler beim Laden der Daten:", err));
 
     sachsenMapObject.addEventListener('load', () => {
         updateCountyAvailability();
         const svgDoc = sachsenMapObject.contentDocument;
-        svgDoc.querySelectorAll('#counties path').forEach(county => {
-            county.addEventListener('click', (e) => {
-                if (e.currentTarget.classList.contains('empty')) return;
-                filterContactPoints(e.currentTarget.id);
+        if (!svgDoc) return;
+        
+        svgDoc.querySelectorAll('#counties path').forEach(path => {
+            path.addEventListener('click', (e) => {
+                if (path.classList.contains('empty')) return;
+                const id = e.currentTarget.id;
+                filterContactPoints(activeCountyPath?.id === id ? 'all' : id);
             });
         });
     });
