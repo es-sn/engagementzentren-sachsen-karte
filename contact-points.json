@@ -491,8 +491,8 @@
     "contactPoints": [
       {
         "id": "Z-001",
-        "name": "Alter Gasometer Zwickau",
-        "carrier": "",
+        "name": "",
+        "carrier": "Alter Gasometer Zwickau",
         "address": {
           "street": "Kleine Biergasse 3",
           "postalCode": "08056",
