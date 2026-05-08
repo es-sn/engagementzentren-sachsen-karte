@@ -1,7 +1,7 @@
-# Selbsthilfe Sachsen Karte
+# Engagementzentren Sachsen Karte
 
 ## Live Page
-[Click here to see the live page.]([https://es-sn.github.io/selbsthilfe-sachsen-karte/]).
+[Click here to see the live page.](https://es-sn.github.io/selbsthilfe-sachsen-karte/).
 
 ## Contributing
 
