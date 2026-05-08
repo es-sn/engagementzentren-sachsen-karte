@@ -141,7 +141,7 @@
       {
         "id": "MEI-001",
         "name": "Familienzentrum Radebeul",
-        "carrier": "Ein \"dritter Ort für HoyWoj\"",
+        "carrier": "Freiwilligenagentur Radebeul",
         "address": {
           "street": "Altkötzschenbroda 20",
           "postalCode": "01445",
@@ -149,9 +149,9 @@
         },
         "contact": {
           "phone": [
-            "+49 3571 2093338"
+            "+49 351 8397371"
           ],
-          "email": "toni.zuechner@kufa-hoyerswerda.de",
+          "email": "claudia.gaebler@familienzentrum-radebeul.de",
           "web": "https://www.familienzentrum-radebeul.de/freiwilligenagentur"
         },
         "openingHours": {
@@ -185,19 +185,19 @@
     "contactPoints": [
       {
         "id": "BZ-001",
-        "name": "",
-        "carrier": "",
+        "name": "Kulturfabrik Hoyerswerda",
+        "carrier": "Ein \"dritter Ort für HoyWoj\"",
         "address": {
-          "street": "",
-          "postalCode": "",
-          "city": ""
+          "street": "Braugasse 1",
+          "postalCode": "02977",
+          "city": "Hoyerswerda"
         },
         "contact": {
           "phone": [
-            ""
+            "+49 3571 2093338"
           ],
-          "email": "",
-          "web": ""
+          "email": "toni.zuechner@kufa-hoyerswerda.de ",
+          "web": "https://kufa-hoyerswerda.de/projekt/projekt-1/"
         },
         "openingHours": {
           "text": "",
@@ -218,7 +218,7 @@
             "url": ""
         },
         "social": {
-          "facebook": "",
+          "facebook": "https://www.facebook.com/profile.php?id=100085554714294",
           "instagram": "",
           "linkedin": ""
         }
@@ -230,19 +230,59 @@
     "contactPoints": [
       {
         "id": "GR-001",
-        "name": "",
-        "carrier": "",
+        "name": "Soziales Netzwerk Lausitz",
+        "carrier": "„Engagement ohne Grenzen“",
         "address": {
-          "street": "",
-          "postalCode": "",
-          "city": ""
+          "street": "Albert-Schweitzer-Ring 34",
+          "postalCode": "02945",
+          "city": "Weißwasser/O.L."
         },
         "contact": {
           "phone": [
-            ""
+            "+49 3576 2584718"
           ],
-          "email": "",
-          "web": ""
+          "email": "christiane.bergmann@snl.gmbh",
+          "web": "https://snl.gmbh/engagement-ohne-grenzen/"
+        },
+        "openingHours": {
+          "text": "",
+          "comment": "",
+          "openingHoursLastUpdated": "2026-05-08",
+          "structured": {
+            "mon": [],
+            "tue": [],
+            "wed": [],
+            "thu": [],
+            "fri": [],
+            "sat": [],
+            "sun": []
+          }
+        },
+        "download": {
+          "text": "",
+          "url": ""
+        },
+        "social": {
+          "facebook": "",
+          "instagram": "",
+          "linkedin": ""
+        }
+      },
+      {
+        "id": "GR-002",
+        "name": "IBZ St. Marienthal",
+        "carrier": "Engagementzentrum",
+        "address": {
+          "street": "St. Marienthal 10",
+          "postalCode": "02899",
+          "city": "Ostritz"
+        },
+        "contact": {
+          "phone": [
+            "+49 35823 209542"
+          ],
+          "email": "droske@sankt-marienthal.eu",
+          "web": "https://www.engagiert-gemeinsam.de"
         },
         "openingHours": {
           "text": "",
@@ -320,17 +360,19 @@
     "contactPoints": [
       {
         "id": "PIR-001",
-        "name": "",
-        "carrier": "",
+        "name": "Bürgerstiftung Kreischa",
+        "carrier": "Engagementzentrum",
         "address": {
-          "street": "",
-          "postalCode": "",
-          "city": ""
+          "street": "Haußmannplatz 5",
+          "postalCode": "01731",
+          "city": "Kreischa"
         },
         "contact": {
-          "phone": [],
-          "email": "",
-          "web": ""
+          "phone": [
+            "+49 35206 398840"
+          ],
+          "email": "mailto:carsten.blume@buergerstiftung-kreischa.de",
+          "web": "https://www.buergerstiftung-kreischa.de/engagementzentrum"
         },
         "openingHours": {
           "text": "",
@@ -449,19 +491,19 @@
     "contactPoints": [
       {
         "id": "Z-001",
-        "name": "",
+        "name": "Alter Gasometer Zwickau",
         "carrier": "",
         "address": {
-          "street": "",
-          "postalCode": "",
-          "city": ""
+          "street": "Kleine Biergasse 3",
+          "postalCode": "08056",
+          "city": "Zwickau"
         },
         "contact": {
           "phone": [
-            ""
+            "+49 375 2772117"
           ],
-          "email": "",
-          "web": ""
+          "email": "christiane.kroegel-ladwig@alter-gasometer.de",
+          "web": "https://www.alter-gasometer.de/service/kontakt/"
         },
         "openingHours": {
           "text": "",
@@ -494,17 +536,19 @@
     "contactPoints": [
       {
         "id": "ERZ-001",
-        "name": "",
-        "carrier": "",
+        "name": "Landratsamt Erzgebirgskreis",
+        "carrier": "Fachstelle Ehrenamt Erzgebirgskreis",
         "address": {
-          "street": "",
-          "postalCode": "",
-          "city": ""
+          "street": "Paulus-Jenisius-Straße 24",
+          "postalCode": "09456",
+          "city": "Annaberg-Buchholz"
         },
         "contact": {
-          "phone": [],
-          "email": "",
-          "web": ""
+          "phone": [
+            "+49 3733 8311023"
+          ],
+          "email": "ehrenamt@kreis-erz.de",
+          "web": "https://ehrenamt.erzgebirgskreis.de/"
         },
         "openingHours": {
           "text": "",
@@ -537,19 +581,19 @@
     "contactPoints": [
       {
         "id": "V-001",
-        "name": "",
-        "carrier": "",
+        "name": "Stadt Adorf",
+        "carrier": "Möglichmacherei",
         "address": {
-          "street": "",
-          "postalCode": "",
-          "city": ""
+          "street": "Markt 1",
+          "postalCode": "08626",
+          "city": "Adorf/Vogtl."
         },
         "contact": {
           "phone": [
-            ""
+            "+49 3742 357513"
           ],
-          "email": "",
-          "web": ""
+          "email": "antje.gossler@adorf-vogtland.de",
+          "web": "https://www.adorf-vogtland.de/inhalte/adorf/_inhalt/soziales/soziales"
         },
         "openingHours": {
           "text": "",
