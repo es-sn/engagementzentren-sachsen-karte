@@ -369,6 +369,19 @@ p.name {
     user-select: none;
 }
 
+#counties path.empty {
+    fill: #e0e0e0 !important;
+    fill-opacity: 0.4;
+    cursor: default;
+    pointer-events: none; 
+}
+
+#counties path.active {
+    fill: var(--primary-color) !important;
+    fill-opacity: 1;
+    cursor: pointer;
+}
+
 /* ==========================================================================
    Opening Status
    ========================================================================== */
