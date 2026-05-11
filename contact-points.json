@@ -592,8 +592,8 @@
           "phone": [
             "+49 3742 357513"
           ],
-          "email": "antje.gossler@adorf-vogtland.de",
-          "web": "https://www.adorf-vogtland.de/inhalte/adorf/_inhalt/soziales/soziales"
+          "email": "moeglichmacherei@adorf-vogtland.de",
+          "web": "https://www.adorf-vogtland.de/inhalte/adorf/_aktuelles/archiv/moe-ma/index.html"
         },
         "openingHours": {
           "text": "",
@@ -614,8 +614,8 @@
           "url": ""
         },
         "social": {
-          "facebook": "",
-          "instagram": "",
+          "facebook": "https://www.facebook.com/moeglichmacherei/",
+          "instagram": "https://www.instagram.com/moeglichmacherei_adorf/",
           "linkedin": ""
         }
       }
