@@ -11,6 +11,11 @@
           "postalCode": "04860",
           "city": "Torgau"
         },
+        "contactPerson": {
+          "salutation": "Frau",
+          "firstName": "Katharina",
+          "lastName": "Krüger"
+        },
         "contact": {
           "phone": [
             "+49 3421 7762230"
