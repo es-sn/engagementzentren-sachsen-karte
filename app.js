@@ -151,6 +151,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const phoneVal = Array.isArray(point.contact?.phone) ? point.contact.phone.filter(n => n !== "").join(', ') : point.contact?.phone;
                 fillText('.phone-numbers', '.phone-wrapper', phoneVal);
 
+                let contactPersonName = "";
+                if (point.contactPerson && point.contactPerson.lastName) {
+                    const { salutation, firstName, lastName } = point.contactPerson;
+                    // filter(Boolean) schmeißt leere Werte (z.B. fehlenden Vornamen) raus, join(' ') setzt Leerzeichen dazwischen
+                    contactPersonName = [salutation, firstName, lastName].filter(Boolean).join(' ');
+                }
+                // Nutzt deine bestehende fillText-Funktion zum Befüllen oder Ausblenden
+                fillText('.contact-person', '.contact-person-wrapper', contactPersonName);
+                // ----------------------------
+                
                 // Links (Email & Website)
                 const fillLink = (wrapperSelector, anchorSelector, value, isEmail = false) => {
                     const wrapper = clone.querySelector(wrapperSelector);
