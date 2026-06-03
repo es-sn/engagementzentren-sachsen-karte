@@ -60,6 +60,11 @@
           "street": "",
           "postalCode": "",
           "city": ""
+          },
+        "contactPerson": {
+          "salutation": "",
+          "firstName": "",
+          "lastName": ""
         },
         "contact": {
           "phone": [
@@ -107,6 +112,11 @@
           "postalCode": "04668",
           "city": "Grimma"
         },
+        "contactPerson": {
+          "salutation": "Frau",
+          "firstName": "Corinna",
+          "lastName": "Franke"
+        },
         "contact": {
           "phone": [
             "+49 3437 701622"
@@ -151,6 +161,11 @@
           "street": "Altkötzschenbroda 20",
           "postalCode": "01445",
           "city": "Radebeul"
+        },
+        "contactPerson": {
+          "salutation": "Frau",
+          "firstName": "Claudia",
+          "lastName": "Gäbler"
         },
         "contact": {
           "phone": [
@@ -197,6 +212,11 @@
           "postalCode": "02977",
           "city": "Hoyerswerda"
         },
+        "contactPerson": {
+          "salutation": "Herr",
+          "firstName": "Toni",
+          "lastName": "Züchner"
+        },
         "contact": {
           "phone": [
             "+49 3571 2093338"
@@ -242,6 +262,11 @@
           "postalCode": "02945",
           "city": "Weißwasser/O.L."
         },
+        "contactPerson": {
+          "salutation": "Frau",
+          "firstName": "Christiane",
+          "lastName": "Bergmann"
+        },
         "contact": {
           "phone": [
             "+49 3576 2584718"
@@ -281,6 +306,11 @@
           "street": "St. Marienthal 10",
           "postalCode": "02899",
           "city": "Ostritz"
+        },
+        "contactPerson": {
+          "salutation": "Herr",
+          "firstName": "Torsten",
+          "lastName": "Droske"
         },
         "contact": {
           "phone": [
@@ -327,6 +357,11 @@
           "postalCode": "",
           "city": ""
         },
+        "contactPerson": {
+          "salutation": "",
+          "firstName": "",
+          "lastName": ""
+        },
         "contact": {
           "phone": [
             ""
@@ -371,6 +406,11 @@
           "street": "Haußmannplatz 5",
           "postalCode": "01731",
           "city": "Kreischa"
+        },
+        "contactPerson": {
+          "salutation": "Herr",
+          "firstName": "Carsten",
+          "lastName": "Blume"
         },
         "contact": {
           "phone": [
@@ -417,6 +457,11 @@
           "postalCode": "",
           "city": ""
         },
+        "contactPerson": {
+          "salutation": "",
+          "firstName": "",
+          "lastName": ""
+        },
         "contact": {
           "phone": [],
           "email": "",
@@ -460,6 +505,11 @@
           "postalCode": "",
           "city": ""
         },
+        "contactPerson": {
+          "salutation": "",
+          "firstName": "",
+          "lastName": ""
+        },
         "contact": {
           "phone": [],
           "email": "",
@@ -502,6 +552,11 @@
           "street": "Kleine Biergasse 3",
           "postalCode": "08056",
           "city": "Zwickau"
+        },
+        "contactPerson": {
+          "salutation": "Frau",
+          "firstName": "Chrisiane",
+          "lastName": "Krögel-Ladwig"
         },
         "contact": {
           "phone": [
@@ -548,6 +603,11 @@
           "postalCode": "09456",
           "city": "Annaberg-Buchholz"
         },
+        "contactPerson": {
+          "salutation": "Herr",
+          "firstName": "Frank",
+          "lastName": "Wutzler"
+        },
         "contact": {
           "phone": [
             "+49 3733 8311023"
@@ -592,6 +652,11 @@
           "street": "Markt 1",
           "postalCode": "08626",
           "city": "Adorf/Vogtl."
+        },
+        "contactPerson": {
+          "salutation": "Frau",
+          "firstName": "Anja",
+          "lastName": "Neudel"
         },
         "contact": {
           "phone": [
