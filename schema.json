@@ -37,6 +37,26 @@
                   }
                 }
               },
+              "contactPerson": {
+                "type": "object",
+                "properties": {
+                  "salutation": {
+                    "type": "string",
+                    "description": "Anrede, z.B. Herr oder Frau"
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "description": "Vorname des Ansprechpartners"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "description": "Nachname des Ansprechpartners"
+                  }
+                },
+                "required": [
+                  "lastName"
+                ]
+              },
               "contact": {
                 "type": "object",
                 "properties": {
